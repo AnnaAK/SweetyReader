@@ -22,14 +22,17 @@ public class RecommenderTests extends BookRecommender {
     //to check that recommender make recommendations
     // (for users who have enough data)
     private long checkWork () throws IOException, TasteException {
-        int amt = 5; // of recommendations
-        BookRecommenderBuilder brb =  new BookRecommenderBuilder();
-        DataModel model = getModel();
-        Recommender recommender = brb.buildRecommender(model);
         for (LongPrimitiveIterator it = model.getUserIDs(); it.hasNext();){
                 long userId = it.nextLong();
                 List<RecommendedItem> recommendations =
-                        recommender.recommend(userId, amt);
+                        cachingRecommender.recommend(userId, recommendationAmt);
+                if (recommendations.size() != 0){
+                    return userId;
+                }
+        }for (LongPrimitiveIterator it = model.getUserIDs(); it.hasNext();){
+                long userId = it.nextLong();
+                List<RecommendedItem> recommendations =
+                        cachingRecommender.recommend(userId, recommendationAmt);
                 if (recommendations.size() != 0){
                     return userId;
                 }
@@ -45,9 +48,9 @@ public class RecommenderTests extends BookRecommender {
         BookRecommender recommender = new BookRecommender();
         try {
             List<RecommendedItem> recommendations = recommender.
-                    getRecommendations(8, 5);
+                    getRecommendations(8);
             assertEquals(5, recommendations.size());
-            assertEquals(786881852, recommendations.get(0).getItemID());
+            assertEquals(60972785, recommendations.get(0).getItemID());
         } catch (IOException e1) {
             e1.printStackTrace();
         } catch (TasteException e1) {
