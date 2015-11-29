@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:text="Добро пожаловать в приложение SweetyReader!"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/welcome"
+        android:textColor="#1084b3" />
+
+</LinearLayout>
