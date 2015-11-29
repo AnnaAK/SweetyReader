@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.support.v4.app.FragmentActivity;
@@ -35,8 +36,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
         adapter = new BookAdapter(this);
-
-
 
         menu = new SlidingMenu(this);
         menu.setMode(SlidingMenu.RIGHT);
@@ -87,38 +86,39 @@ public class MainActivity extends FragmentActivity {
             case 0:
                 setContentView(R.layout.my_library);
                 ((ListView) findViewById(R.id.my_library)).setAdapter(adapter);
+
                 Book newBook = new Book(1, getResources().getString(R.string.author1),
-                        getResources().getString(R.string.book1), 5.0, 4.8,
-                        getResources().getString(R.string.cover1));
+                        getResources().getString(R.string.book1), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover1),"");
                 adapter.add(newBook);
                 Book newBook1 = new Book(2, getResources().getString(R.string.author2),
-                        getResources().getString(R.string.book2), 5.0, 4.8,
-                        getResources().getString(R.string.cover2));
+                        getResources().getString(R.string.book2), 4.0, 4.8,"",
+                        getResources().getString(R.string.cover2),"");
                 adapter.add(newBook1);
                 Book newBook2 = new Book(3, getResources().getString(R.string.author3),
-                        getResources().getString(R.string.book3), 5.0, 4.8,
-                        getResources().getString(R.string.cover3));
+                        getResources().getString(R.string.book3), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover3),"");
                 adapter.add(newBook2);
                 Book newBook3 = new Book(4, getResources().getString(R.string.author4),
-                        getResources().getString(R.string.book4), 5.0, 4.8,
-                        getResources().getString(R.string.cover4));
+                        getResources().getString(R.string.book4), 5.0, 4.7,"",
+                        getResources().getString(R.string.cover4),"");
                 adapter.add(newBook3);
                 Book newBook4 = new Book(5, getResources().getString(R.string.author5),
-                        getResources().getString(R.string.book5), 5.0, 4.8,
-                        getResources().getString(R.string.cover5));
+                        getResources().getString(R.string.book5), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover5),"");
                 adapter.add(newBook4);
                 adapter.add(new Book(2, getResources().getString(R.string.author1),
-                        getResources().getString(R.string.author1), 5.0, 4.8,
-                        getResources().getString(R.string.cover3)));
+                        getResources().getString(R.string.author1), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover1),""));
                 adapter.notifyDataSetChanged();
                 break;
             case 1:
                 adapter.clear();
-                setContentView(R.layout.new_articles);
-                What_read secondFragment = new What_read();
-                secondFragment.setArguments(getIntent().getExtras());
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, secondFragment).commit();
+                setContentView(R.layout.what_read);
+                //What_read secondFragment = new What_read();
+                //secondFragment.setArguments(getIntent().getExtras());
+                //getSupportFragmentManager().beginTransaction()
+                        //.replace(R.id.fragment_container, secondFragment).commit();
                 break;
             case 2:
                 adapter.clear();
@@ -139,21 +139,25 @@ public class MainActivity extends FragmentActivity {
     }
 
     private static class Book {
-        public final Integer id;
+        public final long id;
         public final String author;
         public final String description;
         public final Double user_rating;
         public final Double book_rating;
-        public final String cover;
+        public final String cover_small;
+        public final String cover_medium;
+        public final String cover_big;
 
-        public Book(Integer id, String author, String description, Double user_rating, Double book_rating, String cover) {
+        public Book(long id, String author, String description, Double user_rating, Double book_rating,
+                    String cover_small, String cover_medium, String cover_big) {
             this.id = id;
             this.author = author;
             this.description = description;
             this.user_rating = user_rating;
             this.book_rating = book_rating;
-            this.cover = cover;
-
+            this.cover_small = cover_small;
+            this.cover_medium = cover_medium;
+            this.cover_big = cover_big;
         }
     }
 
@@ -181,7 +185,7 @@ public class MainActivity extends FragmentActivity {
             ((TextView) convertView.findViewById(R.id.rating_book_button))
                     .setText(book.book_rating.toString());
             new DownloadImageTask((ImageView) convertView.findViewById(R.id.cover_book))
-                    .execute(book.cover);
+                    .execute(book.cover_medium);
             return convertView;
 
 
