@@ -48,7 +48,7 @@ public class RecommenderTests extends BookRecommender {
         BookRecommender recommender = new BookRecommender();
         try {
             List<RecommendedItem> recommendations = recommender.
-                    getRecommendations(8);
+                    getRecommendedItems(8);
             assertEquals(5, recommendations.size());
             assertEquals(60972785, recommendations.get(0).getItemID());
         } catch (IOException e1) {

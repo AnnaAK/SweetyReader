@@ -7,15 +7,12 @@ package Recommender;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.eval.RecommenderBuilder;
 import org.apache.mahout.cf.taste.eval.RecommenderEvaluator;
-import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
 import org.apache.mahout.cf.taste.impl.eval.AverageAbsoluteDifferenceRecommenderEvaluator;
-import org.apache.mahout.cf.taste.impl.model.BooleanUserPreferenceArray;
 import org.apache.mahout.cf.taste.impl.model.GenericUserPreferenceArray;
 import org.apache.mahout.cf.taste.impl.model.PlusAnonymousConcurrentUserDataModel;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.recommender.CachingRecommender;
 import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender;
-import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.impl.similarity.TanimotoCoefficientSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
@@ -24,6 +21,7 @@ import org.apache.mahout.cf.taste.recommender.Recommender;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -94,14 +92,26 @@ public class BookRecommender {
 
             i++;
         }
-        // Add the temporary preferences to model
+        // Add the DatasetFormatter preferences to model
         anonymousModel.setTempPrefs(tempPrefs, newUserID);
         return recommendForExistingUser(newUserID);
     }
 
-    public List<RecommendedItem> getRecommendations(int id)
+    protected List<RecommendedItem> getRecommendedItems(int id)
             throws TasteException, IOException {
         return recommendForExistingUser(id);
+    }
+    private ArrayList<Long> convertToIndices(List<RecommendedItem> list) {
+        ArrayList<Long> res = new ArrayList<Long>();
+        if (list == null) return res;
+        for (RecommendedItem e : list ){
+            res.add(e.getItemID());
+        }
+        return res;
+    }
+    public ArrayList<Long> getRecommendations (int id)
+            throws TasteException, IOException {
+        return convertToIndices(recommendForExistingUser(id));
     }
     public double evaluate(double trainingPercentage, double evaluationPercentage) throws TasteException, IOException {
         RecommenderEvaluator evaluator =
