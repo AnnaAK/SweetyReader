@@ -80,8 +80,6 @@ public class SearchEngine {
             ArrayList<Book> books = searchEngine.getBooks(items);
             System.out.println("Ok");
             System.out.println(books.get(0).author);
-        } catch (TasteException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

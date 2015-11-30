@@ -4,6 +4,8 @@ package Recommender;
    made by Guzel Garifullina
    for Sweaty Reader project
 */
+
+
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.eval.RecommenderBuilder;
 import org.apache.mahout.cf.taste.eval.RecommenderEvaluator;
@@ -42,19 +44,16 @@ public class BookRecommender {
     public BookRecommender() {
         File file = new File(fileFull);
         try {
-            model = new  FileDataModel(file);
+            model = new FileDataModel(file);
             anonymousModel = new PlusAnonymousConcurrentUserDataModel(
                     model , concurrentUsers);
+            brb =  new BookRecommenderBuilder();
+            cachingRecommender = brb.buildRecommender(anonymousModel);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        brb =  new BookRecommenderBuilder();
-        try {
-            cachingRecommender = brb.buildRecommender(anonymousModel);
         } catch (TasteException e) {
             e.printStackTrace();
         }
-
     }
     protected class BookRecommenderBuilder implements RecommenderBuilder {
         public Recommender buildRecommender(DataModel model) throws TasteException{
@@ -109,26 +108,31 @@ public class BookRecommender {
         }
         return res;
     }
-    public ArrayList<Long> getRecommendations (int id)
-            throws TasteException, IOException {
-        return convertToIndices(recommendForExistingUser(id));
-    }
-    public double evaluate(double trainingPercentage, double evaluationPercentage) throws TasteException, IOException {
-        RecommenderEvaluator evaluator =
-                new AverageAbsoluteDifferenceRecommenderEvaluator();
-        RecommenderBuilder builder = new BookRecommenderBuilder();
-        double result = evaluator.evaluate(builder, null, model,
-                trainingPercentage, evaluationPercentage);
-        return result;
-    }
-    public static void main(String[] args) {
-        BookRecommender br = new BookRecommender();
+    public ArrayList<Long> getRecommendations (int id) {
         try {
-            System.out.println(br.evaluate(0.2,0.1));
+            return convertToIndices(recommendForExistingUser(id));
         } catch (TasteException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return new ArrayList();
+    }
+    public double evaluate(double trainingPercentage, double evaluationPercentage){
+        RecommenderEvaluator evaluator =
+                new AverageAbsoluteDifferenceRecommenderEvaluator();
+        RecommenderBuilder builder = new BookRecommenderBuilder();
+        double result = 0;
+        try {
+            result = evaluator.evaluate(builder, null, model,
+                    trainingPercentage, evaluationPercentage);
+        } catch (TasteException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public static void main(String[] args) {
+        BookRecommender br = new BookRecommender();
+        System.out.println(br.evaluate(0.2,0.1));
     }
 }
