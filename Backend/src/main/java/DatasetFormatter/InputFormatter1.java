@@ -7,7 +7,7 @@ package DatasetFormatter;
 
 import java.io.*;
 
-public class InputFormatter {
+public class InputFormatter1 {
     public void setFileName (String str){
         fileName = str;
         fullName = filePath + fileName + fileFormat;
@@ -176,8 +176,8 @@ public class InputFormatter {
     }*/
     public static void main(String[] args) {
         String fileName ="BX-Books" ;
-        InputFormatter testSetFormatter =
-                new InputFormatter();
+        InputFormatter1 testSetFormatter =
+                new InputFormatter1();
         testSetFormatter.setFileName(fileName);
         try {
             testSetFormatter.formatBookInformationSet();

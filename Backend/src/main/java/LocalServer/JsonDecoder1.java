@@ -4,15 +4,13 @@ package LocalServer;
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-import Basic.Book;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.StringWriter;
+
 import java.util.ArrayList;
 
-public class JsonDecoder {
+public class JsonDecoder1 {
     public ArrayList<Long> decodeBookIds (JSONObject jsonObject)
             throws JSONException {
         ArrayList<Long> res = new ArrayList<Long>();

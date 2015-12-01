@@ -3,7 +3,7 @@ package Basic;
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-public class Book {
+public class Book1 {
     public long id = 0 ;
     public String title = "";
     public String author = "";

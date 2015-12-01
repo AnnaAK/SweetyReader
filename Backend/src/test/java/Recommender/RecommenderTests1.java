@@ -7,7 +7,6 @@ package Recommender;
 
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator;
-import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.junit.Test;
@@ -18,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-public class RecommenderTests extends BookRecommender {
+public class RecommenderTests1 extends BookRecommender1 {
     //to check that recommender make recommendations
     // (for users who have enough data)
     private long checkWork () throws IOException, TasteException {
@@ -45,10 +44,10 @@ public class RecommenderTests extends BookRecommender {
     }
     @Test
     public void recommendUser() {
-        BookRecommender recommender = new BookRecommender();
+        BookRecommender1 recommender = new BookRecommender1();
         try {
             List<RecommendedItem> recommendations = recommender.
-                    getRecommendedItems(8);
+                    getRecommendedItems(new Long(8));
             assertEquals(5, recommendations.size());
             assertEquals(60972785, recommendations.get(0).getItemID());
         } catch (IOException e1) {

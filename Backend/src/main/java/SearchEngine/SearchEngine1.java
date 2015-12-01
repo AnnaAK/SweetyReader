@@ -5,19 +5,19 @@ package SearchEngine;
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-import Recommender.BookRecommender;
-import org.apache.mahout.cf.taste.common.TasteException;
+import Recommender.BookRecommender1;
+
 import java.io.*;
 import java.util.ArrayList;
-import Basic.Book;
+import Basic.Book1;
 
-public class SearchEngine {
+public class SearchEngine1 {
     private String filePath  = "/home/guzel/" +
             "Programming/SweetyReader/Backend/src/main/java/data/";
     private String fileName = "Formated_BX-Books.csv";
     private File file = new File(filePath + fileName);
-    private Book getBook(String[] tokens){
-        Book book = new Book();
+    private Book1 getBook(String[] tokens){
+        Book1 book = new Book1();
         book.id = Long.parseLong(tokens[0]);
         book.title = tokens[1];
         book.author = tokens[2];
@@ -26,8 +26,8 @@ public class SearchEngine {
         book.pl = tokens[5];
         return book;
     }
-    public ArrayList<Book> getBooks (ArrayList<Long> arr) throws IOException {
-        ArrayList<Book> books = new ArrayList<Book>();
+    public ArrayList<Book1> getBooks (ArrayList<Long> arr) throws IOException {
+        ArrayList<Book1> books = new ArrayList<Book1>();
         BufferedReader br = null;
         int amt = 0;
         try {
@@ -69,15 +69,15 @@ public class SearchEngine {
         }
     }
     public static void main(String[] args) {
-        BookRecommender br = new BookRecommender();
+        BookRecommender1 br = new BookRecommender1();
         try {
-            SearchEngine searchEngine = new SearchEngine();
-            ArrayList items  = br.getRecommendations(8);
+            SearchEngine1 searchEngine = new SearchEngine1();
+            ArrayList items  = br.getRecommendations(new Long(8));
             if (items == null){
                 System.out.println("Recommendation fail");
                 return;
             }
-            ArrayList<Book> books = searchEngine.getBooks(items);
+            ArrayList<Book1> books = searchEngine.getBooks(items);
             System.out.println("Ok");
             System.out.println(books.get(0).author);
         } catch (IOException e) {

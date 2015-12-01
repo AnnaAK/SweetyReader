@@ -5,7 +5,7 @@
          version="3.1">
     <servlet>
         <servlet-name>RecommendationServlet</servlet-name>
-        <servlet-class>LocalServer.RecommendationServlet</servlet-class>
+        <servlet-class>LocalServer.RecommendationServlet1</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BookRecommender {
+public class BookRecommender1 {
     String fileDir  = "/home/guzel/Programming/" +
             "SweetyReader/Backend/src/main/java/data/";
     //String fileName ="smallDataset.csv" ;
@@ -41,7 +41,7 @@ public class BookRecommender {
     protected PlusAnonymousConcurrentUserDataModel anonymousModel;
     protected BookRecommenderBuilder brb ;
     protected Recommender cachingRecommender ;
-    public BookRecommender() {
+    public BookRecommender1() {
         File file = new File(fileFull);
         try {
             model = new FileDataModel(file);
@@ -64,10 +64,10 @@ public class BookRecommender {
             return cachingRecommender;
         }
     }
-    private boolean userExistsInDataModel(DataModel model, int id){
+    private boolean userExistsInDataModel(DataModel model, Long id){
         return true;
     }
-    private List<RecommendedItem> recommendForExistingUser(long id)
+    private List<RecommendedItem> recommendForExistingUser(Long id)
             throws TasteException, IOException {
         List<RecommendedItem> recommendations = cachingRecommender.
                 recommend(id, recommendationAmt);
@@ -96,7 +96,7 @@ public class BookRecommender {
         return recommendForExistingUser(newUserID);
     }
 
-    protected List<RecommendedItem> getRecommendedItems(int id)
+    protected List<RecommendedItem> getRecommendedItems(Long id)
             throws TasteException, IOException {
         return recommendForExistingUser(id);
     }
@@ -108,7 +108,7 @@ public class BookRecommender {
         }
         return res;
     }
-    public ArrayList<Long> getRecommendations (int id) {
+    public ArrayList<Long> getRecommendations (Long id) {
         try {
             return convertToIndices(recommendForExistingUser(id));
         } catch (TasteException e) {
@@ -132,7 +132,7 @@ public class BookRecommender {
         return result;
     }
     public static void main(String[] args) {
-        BookRecommender br = new BookRecommender();
+        BookRecommender1 br = new BookRecommender1();
         System.out.println(br.evaluate(0.2,0.1));
     }
 }
