@@ -5,18 +5,16 @@ package LocalServer
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-import Basic.Book
 import Recommender.BookRecommender
 import SearchEngine.SearchEngine
+import org.json.JSONObject
+import java.io.IOException
+import java.util.*
 import javax.servlet.ServletException
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import Recommender.BookRecommender1
-import org.json.JSONObject
-import java.io.*
-import java.util.ArrayList
 
 @WebServlet(name = "RecommendationServlet")
 class RecommendationServlet : HttpServlet() {
@@ -27,7 +25,7 @@ class RecommendationServlet : HttpServlet() {
         println("----------")
     }
 
-    private var recommender: BookRecommender? = null
+    private val recommender: BookRecommender? = null
     private var jsonEncoder: JsonEncoder? = null
     private var jsonDecoder: JsonDecoder? = null
     private var searchEngine: SearchEngine? = null
@@ -43,15 +41,22 @@ class RecommendationServlet : HttpServlet() {
     @Throws(ServletException::class, IOException::class)
     override fun doPost(request: HttpServletRequest, response: HttpServletResponse) {
         if (jsonEncoder == null) {
-            recommender = BookRecommender();
+            //recommender = new BookRecommender();
             jsonEncoder = JsonEncoder()
             jsonDecoder = JsonDecoder()
             searchEngine = SearchEngine()
         }
         val jsonString = request.getParameter("jsonOb")
-        val bookIds = jsonDecoder!!.decodeBookIds(JSONObject(jsonString))
+        val bookRatesClass = jsonDecoder!!.decodeInput(JSONObject(jsonString))
         response.contentType = "application/json"
 
+        val bookIds = ArrayList<Long>()
+        for (e in bookRatesClass.rates.entries) {
+            bookIds.add(e.key)
+        }
+
+        //val bookIds = recommender!!.getRecommendations(bookRatesClass.id,
+        //       bookRatesClass.rates)
         val books = searchEngine!!.getBooks(bookIds)
         val jsonObject = jsonEncoder!!.encodeBooks(books)
 

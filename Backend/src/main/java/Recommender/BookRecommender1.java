@@ -18,8 +18,8 @@ import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.TanimotoCoefficientSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
-import org.apache.mahout.cf.taste.similarity.ItemSimilarity;
 import org.apache.mahout.cf.taste.recommender.Recommender;
+import org.apache.mahout.cf.taste.similarity.ItemSimilarity;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,20 +74,20 @@ public class BookRecommender1 {
         return recommendations;
     }
     private List<RecommendedItem> recommendForNewUser
-            (Map<Long, Float> userPreferences) throws IOException, TasteException {
+            (Map<Long, Double> userPreferences) throws IOException, TasteException {
         //Get new user id
         long newUserID = anonymousModel.takeAvailableUser();
         // fill a Mahout data structure with the user's preferences
         GenericUserPreferenceArray tempPrefs =
                 new GenericUserPreferenceArray(userPreferences.size());
         int i = 0;
-        for(Map.Entry<Long, Float> entry : userPreferences.entrySet()) {
+        for(Map.Entry<Long, Double> entry : userPreferences.entrySet()) {
             Long key = entry.getKey();
-            Float value = entry.getValue();
+            Double value = entry.getValue();
 
             tempPrefs.setUserID(i, newUserID);
             tempPrefs.setItemID(i, key);
-            tempPrefs.setValue(i, value);
+            tempPrefs.setValue(i,  value.floatValue());
 
             i++;
         }

@@ -8,7 +8,6 @@ package Recommender
 
 import org.apache.mahout.cf.taste.common.TasteException
 import org.apache.mahout.cf.taste.eval.RecommenderBuilder
-import org.apache.mahout.cf.taste.eval.RecommenderEvaluator
 import org.apache.mahout.cf.taste.impl.eval.AverageAbsoluteDifferenceRecommenderEvaluator
 import org.apache.mahout.cf.taste.impl.model.GenericUserPreferenceArray
 import org.apache.mahout.cf.taste.impl.model.PlusAnonymousConcurrentUserDataModel
@@ -18,12 +17,10 @@ import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender
 import org.apache.mahout.cf.taste.impl.similarity.TanimotoCoefficientSimilarity
 import org.apache.mahout.cf.taste.model.DataModel
 import org.apache.mahout.cf.taste.recommender.RecommendedItem
-import org.apache.mahout.cf.taste.similarity.ItemSimilarity
 import org.apache.mahout.cf.taste.recommender.Recommender
-
 import java.io.File
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 
 open class BookRecommender {
     internal var fileDir = "/home/guzel/Programming/" + "SweetyReader/Backend/src/main/java/data/"
@@ -63,7 +60,7 @@ open class BookRecommender {
         }
     }
 
-    private fun userExistsInDataModel(model: DataModel?, id: Long): Boolean {
+    private fun userExistsInDataModel(id: Long): Boolean {
         return true
     }
 
@@ -72,7 +69,7 @@ open class BookRecommender {
         return recommendations
     }
 
-    private fun recommendForNewUser(userPreferences: Map<Long, Float>): List<RecommendedItem>? {
+    private fun recommendForNewUser(userPreferences: Map<Long, Double>): List<RecommendedItem>? {
         //Get new user id
         val newUserID = anonymousModel!!.takeAvailableUser()
         // fill a Mahout data structure with the user's preferences
@@ -84,7 +81,7 @@ open class BookRecommender {
 
             tempPrefs.setUserID(i, newUserID)
             tempPrefs.setItemID(i, key)
-            tempPrefs.setValue(i, value)
+            tempPrefs.setValue(i, value.toFloat())
 
             i++
         }
@@ -93,9 +90,12 @@ open class BookRecommender {
         return recommendForExistingUser(newUserID)
     }
 
-    @Throws(TasteException::class, IOException::class)
-    protected fun getRecommendedItems(id: Long): List<RecommendedItem>? {
-        return recommendForExistingUser(id)
+    protected fun getRecommendedItems(id: Long, userPreferences: Map<Long, Double>)
+            : List<RecommendedItem>? {
+        if (userExistsInDataModel(id)) {
+            return recommendForExistingUser(id)
+        }
+        return recommendForNewUser(userPreferences);
     }
 
     private fun convertToIndices(list: List<RecommendedItem>?): ArrayList<Long> {
@@ -107,9 +107,9 @@ open class BookRecommender {
         return res
     }
 
-    fun getRecommendations(id: Long): ArrayList<Long> {
+    public fun getRecommendations(id: Long, userPreferences: Map<Long, Double>): ArrayList<Long> {
         try {
-            return convertToIndices(recommendForExistingUser(id))
+            return convertToIndices(getRecommendedItems(id, userPreferences))
         } catch (e: TasteException) {
             e.printStackTrace()
         } catch (e: IOException) {
@@ -119,7 +119,7 @@ open class BookRecommender {
         return ArrayList()
     }
 
-    fun evaluate(trainingPercentage: Double, evaluationPercentage: Double): Double {
+    public fun evaluate(trainingPercentage: Double, evaluationPercentage: Double): Double {
         val evaluator = AverageAbsoluteDifferenceRecommenderEvaluator()
         val builder = BookRecommenderBuilder()
         var result = 0.0
@@ -129,7 +129,6 @@ open class BookRecommender {
         } catch (e: TasteException) {
             e.printStackTrace()
         }
-
         return result
     }
 

@@ -5,19 +5,23 @@ package LocalServer;
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-import Basic.Book1;
+
+import Basic.Book;
+import Recommender.BookRecommender1;
 import SearchEngine.SearchEngine1;
+import org.json.JSONObject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Recommender.BookRecommender1;
-import org.json.JSONObject;
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 
-@WebServlet(name = "RecommendationServlet")
+@WebServlet(name = "RecommendationServlet1")
 public class RecommendationServlet1 extends HttpServlet {
     public void init() throws ServletException {
         System.out.println("----------");
@@ -46,11 +50,17 @@ public class RecommendationServlet1 extends HttpServlet {
             searchEngine = new SearchEngine1();
         }
         String jsonString = request.getParameter("jsonOb");
-        ArrayList<Long> bookIds = jsonDecoder.decodeBookIds
-                (new JSONObject(jsonString ));
+        UserRates bookRatesClass = jsonDecoder.decodeInput (new JSONObject(jsonString ));
         response.setContentType("application/json");
 
-        ArrayList<Book1> books = searchEngine.getBooks(bookIds);
+        ArrayList<Long> bookIds = new ArrayList<Long>();
+        for (Map.Entry<Long, Double> e : bookRatesClass.getRates().entrySet()){
+            bookIds.add(e.getKey());
+        }
+
+        //val bookIds = recommender!!.getRecommendations(bookRatesClass.id,
+        //       bookRatesClass.rates)
+        ArrayList<Book> books = searchEngine.getBooks(bookIds);
         JSONObject jsonObject = jsonEncoder.encodeBooks(books);
 
         PrintWriter out = response.getWriter();

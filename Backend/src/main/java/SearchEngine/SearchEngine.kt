@@ -5,11 +5,14 @@ package SearchEngine
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-import Recommender.BookRecommender1
 
-import java.io.*
-import java.util.ArrayList
 import Basic.Book
+import Recommender.BookRecommender1
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
+import java.io.IOException
+import java.util.*
 
 class SearchEngine {
     private val filePath = "/home/guzel/" + "Programming/SweetyReader/Backend/src/main/java/data/"
@@ -59,7 +62,6 @@ class SearchEngine {
             return books
         }
     }
-
     companion object {
         @JvmStatic fun main(args: Array<String>) {
             val br = BookRecommender1()

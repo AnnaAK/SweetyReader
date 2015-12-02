@@ -4,12 +4,12 @@ package LocalServer
    made by Guzel Garifullina
    for Sweaty Reader project
 */
+
 import Basic.Book
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-
-import java.util.ArrayList
+import java.util.*
 
 class JsonEncoder {
     private fun encodeBook(book: Book): JSONObject {

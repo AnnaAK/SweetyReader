@@ -4,18 +4,20 @@ package LocalServer
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-import org.json.JSONArray
 import org.json.JSONObject
-
-import java.util.ArrayList
+import java.util.*
 
 class JsonDecoder {
-    fun decodeBookIds(jsonObject: JSONObject): ArrayList<Long> {
-        val res = ArrayList<Long>()
-        val arr = jsonObject.getJSONArray("bookIDs")
+    fun decodeInput(jsonObject: JSONObject): UserRates {
+        val rates = HashMap<Long, Double>()
+        val arr = jsonObject.getJSONArray("bookRates")
         for (i in 0..arr.length() - 1) {
-            res.add((arr.getLong(i)))
+            val jOb = arr.getJSONObject(i)
+            rates.set(jOb.getLong("id"),jOb.getDouble("rate") )
         }
-        return res
+        val userRatesClass = UserRates()
+        userRatesClass.id = jsonObject.getLong("userID")
+        userRatesClass.rates = rates
+        return  userRatesClass
     }
 }

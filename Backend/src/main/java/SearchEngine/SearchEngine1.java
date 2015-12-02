@@ -5,29 +5,33 @@ package SearchEngine;
    made by Guzel Garifullina
    for Sweaty Reader project
 */
+
+import Basic.Book;
 import Recommender.BookRecommender1;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import Basic.Book1;
 
 public class SearchEngine1 {
     private String filePath  = "/home/guzel/" +
             "Programming/SweetyReader/Backend/src/main/java/data/";
     private String fileName = "Formated_BX-Books.csv";
     private File file = new File(filePath + fileName);
-    private Book1 getBook(String[] tokens){
-        Book1 book = new Book1();
-        book.id = Long.parseLong(tokens[0]);
-        book.title = tokens[1];
-        book.author = tokens[2];
-        book.ps = tokens[3];
-        book.pm = tokens[4];
-        book.pl = tokens[5];
+    private Book getBook(String[] tokens){
+        Book book = new Book();
+        book.setId(Long.parseLong(tokens[0]));
+        book.setTitle(tokens[1]);
+        book.setAuthor(tokens[2]);
+        book.setPs(tokens[3]);
+        book.setPm(tokens[4]);
+        book.setPl(tokens[5]);
         return book;
     }
-    public ArrayList<Book1> getBooks (ArrayList<Long> arr) throws IOException {
-        ArrayList<Book1> books = new ArrayList<Book1>();
+    public ArrayList<Book> getBooks (ArrayList<Long> arr) throws IOException {
+        ArrayList<Book> books = new ArrayList<Book>();
         BufferedReader br = null;
         int amt = 0;
         try {
@@ -77,9 +81,9 @@ public class SearchEngine1 {
                 System.out.println("Recommendation fail");
                 return;
             }
-            ArrayList<Book1> books = searchEngine.getBooks(items);
+            ArrayList<Book> books = searchEngine.getBooks(items);
             System.out.println("Ok");
-            System.out.println(books.get(0).author);
+            System.out.println(books.get(0).getPm());
         } catch (IOException e) {
             e.printStackTrace();
         }

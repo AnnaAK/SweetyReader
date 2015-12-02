@@ -4,7 +4,7 @@ package LocalServer;
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-import Basic.Book1;
+import Basic.Book;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,15 +12,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class JsonEncoder1 {
-    private JSONObject encodeBook(Book1 book) {
+    private JSONObject encodeBook(Book book) {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("id", book.id);
-            obj.put("title", book.title);
-            obj.put("author", book.author);
-            obj.put("coverS", book.ps);
-            obj.put("coverM", book.pm);
-            obj.put("coverL", book.pl);
+            obj.put("id", book.getId());
+            obj.put("title", book.getTitle());
+            obj.put("author", book.getAuthor());
+            obj.put("coverS", book.getPs());
+            obj.put("coverM", book.getPm());
+            obj.put("coverL", book.getPl());
             return obj;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -37,9 +37,9 @@ public class JsonEncoder1 {
         mainObj.put("bookIDs", ja);
         return mainObj;
     }*/
-    public JSONObject encodeBooks(ArrayList<Book1> books) {
+    public JSONObject encodeBooks(ArrayList<Book> books) {
         JSONArray ja = new JSONArray();
-        for (Book1 book : books) {
+        for (Book book : books) {
             JSONObject jo = encodeBook(book);
             ja.put(jo);
         }

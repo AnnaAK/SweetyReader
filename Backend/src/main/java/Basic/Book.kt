@@ -5,10 +5,10 @@ package Basic
    for Sweaty Reader project
 */
 class Book {
-    var id: Long = 0
-    var title = ""
-    var author = ""
-    var ps = ""
-    var pm = ""
-    var pl = ""
+    public var id: Long = 0
+    public var title = ""
+    public var author = ""
+    public var ps = ""
+    public var pm = ""
+    public var pl = ""
 }

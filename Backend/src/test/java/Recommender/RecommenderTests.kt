@@ -6,15 +6,10 @@ package Recommender
 */
 
 import org.apache.mahout.cf.taste.common.TasteException
-import org.apache.mahout.cf.taste.impl.common.LongPrimitiveIterator
-import org.apache.mahout.cf.taste.recommender.RecommendedItem
-import org.apache.mahout.cf.taste.recommender.Recommender
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.IOException
-
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Assert.assertFalse
+import java.util.*
 
 class RecommenderTests : BookRecommender() {
     //to check that recommender make recommendations
@@ -51,9 +46,9 @@ class RecommenderTests : BookRecommender() {
     fun recommendUser() {
         val recommender = BookRecommender()
         try {
-            val recommendations = recommender.getRecommendedItems(8)
-            assertEquals(5, recommendations!!.size)
-            assertEquals(60972785, recommendations[0]!!.itemID)
+            val recommendations = recommender.getRecommendations(8, HashMap())
+            assertEquals(5, recommendations.size)
+            assertEquals(60972785, recommendations[0])
         } catch (e1: IOException) {
             e1.printStackTrace()
         } catch (e1: TasteException) {

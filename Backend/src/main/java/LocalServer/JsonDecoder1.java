@@ -4,22 +4,27 @@ package LocalServer;
    made by Guzel Garifullina
    for Sweaty Reader project
 */
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class JsonDecoder1 {
-    public ArrayList<Long> decodeBookIds (JSONObject jsonObject)
+    public UserRates decodeInput (JSONObject jsonObject)
             throws JSONException {
-        ArrayList<Long> res = new ArrayList<Long>();
-        JSONArray arr = jsonObject.getJSONArray("bookIDs");
-        for (int i = 0; i < arr.length(); i++)
+        HashMap<Long, Double> rates = new HashMap<Long, Double>();
+        JSONArray array = jsonObject.getJSONArray("bookRates");
+        for (int i = 0; i < array.length(); i++)
         {
-            res.add((arr.getLong(i)));
+            JSONObject jOb = array.getJSONObject(i);
+            rates.put(jOb.getLong("id"),jOb.getDouble("rate") );
         }
-        return res;
+        UserRates userRatesClass = new UserRates();
+        userRatesClass.setId(jsonObject.getLong("userID"));
+        userRatesClass.setRates (rates);
+        return  userRatesClass;
     }
     /*public static void main(String[] args) {
         ArrayList<Long> bookIds = new ArrayList();

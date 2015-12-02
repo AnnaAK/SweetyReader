@@ -7,7 +7,7 @@ package DatasetFormatter;
 
 import java.io.*;
 
-public class InputFormatter1 {
+public class InputFormatter {
     public void setFileName (String str){
         fileName = str;
         fullName = filePath + fileName + fileFormat;
@@ -85,7 +85,7 @@ public class InputFormatter1 {
         }catch (IOException e) {
                 System.err.println("Cannot find file");
         } finally {
-            fileName = "";
+            setFileName ("");
             pw.close();
             br.close();
             System.out.println(amt1);
@@ -158,9 +158,34 @@ public class InputFormatter1 {
         }catch (IOException e) {
             System.err.println("Cannot find file");
         } finally {
-            fileName = "";
+            setFileName("");
             pw.close();
             br.close();
+        }
+    }
+    //free 10^10
+    public Long findMaxIdUser() throws IOException {
+        setFileName ("Formated_" + "BX-Books");
+        File file = new File(fullName);
+        BufferedReader br = null;
+        Long max = new Long(0);
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String delims = ";";
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] tokens = line.split(delims);
+                Long index = Long.parseLong(tokens[0]);
+                if (index.compareTo(max) == 1) {
+                    max = index;
+                }
+            }
+        }catch (IOException e) {
+            System.err.println("Cannot find file");
+        } finally {
+            fileName = "";
+            if (br != null) br.close();
+            return  max;
         }
     }
     /*public static void main(String[] args) {
@@ -174,21 +199,25 @@ public class InputFormatter1 {
         System.err.println("Cannot find file");
         }
     }*/
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         String fileName ="BX-Books" ;
-        InputFormatter1 testSetFormatter =
-                new InputFormatter1();
+        InputFormatter testSetFormatter =
+                new InputFormatter();
         testSetFormatter.setFileName(fileName);
         try {
             testSetFormatter.formatBookInformationSet();
         } catch (IOException e) {
             System.err.println("Cannot find file");
         }
-        /*String line = "dvdsv;  ,sfdffd;vdsvdvd";
-        String delims = "[;]";
-        String[] tokens = line.split(delims);
-        for (String e : tokens){
-            System.err.println(e);
-        }*/
+
+    }*/
+    public static void main(String[] args) {
+        InputFormatter formatter =
+                new InputFormatter();
+        try {
+            System.out.print(formatter.findMaxIdUser());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
