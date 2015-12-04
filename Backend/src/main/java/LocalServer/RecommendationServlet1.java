@@ -16,10 +16,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @WebServlet(name = "RecommendationServlet1")
 public class RecommendationServlet1 extends HttpServlet {
@@ -49,7 +49,15 @@ public class RecommendationServlet1 extends HttpServlet {
             jsonDecoder = new JsonDecoder1();
             searchEngine = new SearchEngine1();
         }
-        String jsonString = request.getParameter("jsonOb");
+        //String jsonString = request.getParameter("jsonOb");
+        InputStream in = new BufferedInputStream(request.getInputStream());
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(in));
+        String jsonString = "";
+        String output;
+        while ((output = br.readLine()) != null) {
+            jsonString += output;
+        }
         UserRates bookRatesClass = jsonDecoder.decodeInput (new JSONObject(jsonString ));
         response.setContentType("application/json");
 
