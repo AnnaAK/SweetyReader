@@ -1,4 +1,4 @@
-package com.example.readbooks4;
+package com.example.readbooks;
 
 /* General class Book
    made by Guzel Garifullina

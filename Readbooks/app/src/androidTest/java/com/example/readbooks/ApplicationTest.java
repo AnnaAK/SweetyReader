@@ -1,4 +1,4 @@
-package com.example.readbooks4;
+package com.example.readbooks;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

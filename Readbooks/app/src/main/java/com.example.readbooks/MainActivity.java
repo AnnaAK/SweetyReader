@@ -1,22 +1,19 @@
-package com.example.readbooks4;
+package com.example.readbooks;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.*;
 import android.support.v4.app.FragmentActivity;
-import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -64,6 +61,13 @@ public class MainActivity extends FragmentActivity {
                 changeFragment(position);
             }
         });
+
+        MultiDex.install(this);
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override
@@ -78,6 +82,19 @@ public class MainActivity extends FragmentActivity {
 
         return true;
     }
+
+    private void showRecomendation(){
+        adapter.clear();
+        setContentView(R.layout.my_library);
+        ((ListView) findViewById(R.id.my_library)).setAdapter(adapter);
+
+        Book newBook = new Book(1, getResources().getString(R.string.author1),
+                getResources().getString(R.string.title1),
+                getResources().getString(R.string.book1), 5.0, 4.8,"",
+                getResources().getString(R.string.cover1),"");
+        adapter.add(newBook);
+    }
+
 
 
      private void changeFragment(int position) {
@@ -116,11 +133,14 @@ public class MainActivity extends FragmentActivity {
                 break;
             case 1:
                 adapter.clear();
-                setContentView(R.layout.new_articles);
-                What_read secondFragment = new What_read();
-                secondFragment.setArguments(getIntent().getExtras());
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, secondFragment).commit();
+                setContentView(R.layout.what_read);
+                Button getRecomend = (Button) findViewById(R.id.get_recomend);
+                getRecomend.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showRecomendation();
+                    }
+                });
                 break;
             case 2:
                 adapter.clear();
@@ -139,8 +159,6 @@ public class MainActivity extends FragmentActivity {
         else
             menu.showMenu();
     }
-
-
 
     private class BookAdapter extends ArrayAdapter<Book> {
 
@@ -170,7 +188,6 @@ public class MainActivity extends FragmentActivity {
             new DownloadImageTask((ImageView) convertView.findViewById(R.id.cover_book))
                     .execute(book.cover_medium);
             return convertView;
-
         }
     }
 
