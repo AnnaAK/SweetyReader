@@ -131,8 +131,6 @@ public class MainActivity extends FragmentActivity {
                     }
                 }
             }).start();
-
-
     }
 
     private void changeFragment(int position) {
@@ -141,7 +139,7 @@ public class MainActivity extends FragmentActivity {
                 adapter.clear();
                 setContentView(R.layout.my_library);
                 ((ListView) findViewById(R.id.my_library)).setAdapter(adapter);
-                Book newBook = new Book(1, getResources().getString(R.string.author1),
+                /**Book newBook = new Book(1, getResources().getString(R.string.author1),
                         getResources().getString(R.string.title1),
                         getResources().getString(R.string.book1), 5.0, 4.8,"",
                         getResources().getString(R.string.cover1),"");
@@ -165,7 +163,102 @@ public class MainActivity extends FragmentActivity {
                         getResources().getString(R.string.title5),
                         getResources().getString(R.string.book5), 5.0, 4.8,"",
                         getResources().getString(R.string.cover5),"");
-                adapter.add(newBook4);
+                adapter.add(newBook4);*/
+                Book newBook5 = new Book(671027360, getResources().getString(R.string.author6),
+                        getResources().getString(R.string.title6),
+                        getResources().getString(R.string.book6), 4.0, 4.6,"",
+                        getResources().getString(R.string.cover6),"");
+                adapter.add(newBook5);
+                Book newBook6 = new Book(330332775, getResources().getString(R.string.author7),
+                        getResources().getString(R.string.title7),
+                        getResources().getString(R.string.book7), 3.0, 3.9,"",
+                        getResources().getString(R.string.cover7),"");
+                adapter.add(newBook6);
+                Book newBook7 = new Book(671027387, getResources().getString(R.string.author8),
+                        getResources().getString(R.string.title8),
+                        getResources().getString(R.string.book8), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover8),"");
+                adapter.add(newBook7);
+                Book newBook8 = new Book(380973839, getResources().getString(R.string.author9),
+                        getResources().getString(R.string.title9),
+                        getResources().getString(R.string.book9), 5.0, 4.9,"",
+                        getResources().getString(R.string.cover9),"");
+                adapter.add(newBook8);
+                Book newBook9 = new Book(743424425, getResources().getString(R.string.author10),
+                        getResources().getString(R.string.title10),
+                        getResources().getString(R.string.book10), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover10),"");
+                adapter.add(newBook9);
+                Book newBook10 = new Book(307001164, getResources().getString(R.string.author11),
+                        getResources().getString(R.string.title11),
+                        getResources().getString(R.string.book11), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover11),"");
+                adapter.add(newBook10);
+                Book newBook11 = new Book(140620338, getResources().getString(R.string.author12),
+                        getResources().getString(R.string.title12),
+                        getResources().getString(R.string.book12), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover12),"");
+                adapter.add(newBook11);
+                Book newBook12 = new Book(99771519, getResources().getString(R.string.author13),
+                        getResources().getString(R.string.title13),
+                        getResources().getString(R.string.book13), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover13),"");
+                adapter.add(newBook12);
+                /**Book newBook13 = new Book(425050750, getResources().getString(R.string.author14),
+                        getResources().getString(R.string.title14),
+                        getResources().getString(R.string.book14), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover14),"");
+                adapter.add(newBook13);*/
+                Book newBook14 = new Book(345325818, getResources().getString(R.string.author15),
+                        getResources().getString(R.string.title15),
+                        getResources().getString(R.string.book15), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover15),"");
+                adapter.add(newBook14);
+                Book newBook15 = new Book(950547001, getResources().getString(R.string.author16),
+                        getResources().getString(R.string.title16),
+                        getResources().getString(R.string.book16), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover16),"");
+                adapter.add(newBook15);
+                Book newBook16 = new Book(451187903, getResources().getString(R.string.author17),
+                        getResources().getString(R.string.title17),
+                        getResources().getString(R.string.book17), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover17),"");
+                adapter.add(newBook16);
+                Book newBook17 = new Book(671032658, getResources().getString(R.string.author18),
+                        getResources().getString(R.string.title18),
+                        getResources().getString(R.string.book18), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover18),"");
+                adapter.add(newBook17);
+                Book newBook18 = new Book(345339703, getResources().getString(R.string.author19),
+                        getResources().getString(R.string.title19),
+                        getResources().getString(R.string.book19), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover19),"");
+                adapter.add(newBook18);
+               /** Book newBook19 = new Book(5, getResources().getString(R.string.author20),
+                        getResources().getString(R.string.title20),
+                        getResources().getString(R.string.book20), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover20),"");
+                adapter.add(newBook19);*/
+                /**Book newBook20 = new Book(5, getResources().getString(R.string.author21),
+                        getResources().getString(R.string.title21),
+                        getResources().getString(R.string.book21), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover21),"");
+                adapter.add(newBook20);*/
+                Book newBook21 = new Book(61020710, getResources().getString(R.string.author22),
+                        getResources().getString(R.string.title22),
+                        getResources().getString(R.string.book22), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover22),"");
+                adapter.add(newBook21);
+                Book newBook22 = new Book(446605239, getResources().getString(R.string.author23),
+                        getResources().getString(R.string.title23),
+                        getResources().getString(R.string.book23), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover23),"");
+                adapter.add(newBook22);
+                /**Book newBook23 = new Book(5, getResources().getString(R.string.author24),
+                        getResources().getString(R.string.title24),
+                        getResources().getString(R.string.book24), 5.0, 4.8,"",
+                        getResources().getString(R.string.cover24),"");
+                adapter.add(newBook23);*/
                 adapter.notifyDataSetChanged();
                 break;
             case 1:
