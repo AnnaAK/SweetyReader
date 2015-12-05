@@ -19,13 +19,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ServerConnector{
-    public ArrayList<Book> getRecommendations(Long id,Map<Long, Double> rates )
+    public ArrayList<Book> getRecommendations(Long id,ArrayList<Book> rates)
             throws IOException, JSONException {
-       // String host = "192.168.1.49";
+        String host = "192.168.1.49";
        // String host = "172.20.153.119";
-        String localhost = "127.0.0.1";
+        //String localhost = "127.0.0.1";
         String port = "8080";
-        String address = "http://"+ localhost + ":"+port + "/directURL";
+        String address = "http://"+ host + ":"+port + "/directURL";
         JsonEncoder jsonEncoder = new JsonEncoder();
         JsonDecoder jsonDecoder = new JsonDecoder();
 

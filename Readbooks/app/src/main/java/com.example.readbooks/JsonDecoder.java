@@ -7,7 +7,6 @@ package com.example.readbooks;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class JsonDecoder {
@@ -37,7 +36,6 @@ public class JsonDecoder {
         b1.id = new Long(425182908);
         books.add(b1);
         books.add(b);
-
         JsonEncoder je = new JsonEncoder();
         JSONObject obj = null;
         try {

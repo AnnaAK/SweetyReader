@@ -16,9 +16,12 @@ import android.widget.*;
 import android.support.v4.app.FragmentActivity;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -84,26 +87,60 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void showRecomendation(){
-        adapter.clear();
-        setContentView(R.layout.my_library);
-        ((ListView) findViewById(R.id.my_library)).setAdapter(adapter);
 
-        Book newBook = new Book(1, getResources().getString(R.string.author1),
-                getResources().getString(R.string.title1),
-                getResources().getString(R.string.book1), 5.0, 4.8,"",
-                getResources().getString(R.string.cover1),"");
-        adapter.add(newBook);
+            new Thread(new Runnable() {
+                public void run() {
+                    ServerConnector sc = new ServerConnector();
+                    ArrayList<Book> bookRates = new ArrayList<Book>();
+                    Book b1 = new Book();
+                    b1.id = new Long(195153448);
+                    b1.user_rating = 9.8;
+
+                    Book b2 = new Book();
+                    b2.id = new Long(425182908);
+                    b2.user_rating = 7.8;
+
+                    Book b3 = new Book();
+                    b3.id = new Long(679810307);
+                    b3.user_rating = 6.3;
+
+                    bookRates.add(b1);
+                    bookRates.add(b2);
+                    bookRates.add(b3);
+                    Long id = new Long(8);
+                    try {
+                        final ArrayList<Book> recommendedBooks = sc.getRecommendations(id, bookRates);
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                adapter.clear();
+                                setContentView(R.layout.my_library);
+                                ((ListView) findViewById(R.id.my_library)).setAdapter(adapter);
+                                if (recommendedBooks == null){
+                                    return;
+                                }
+                                for (Book book:recommendedBooks){
+                                    adapter.add(book);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+
     }
 
-
-
-     private void changeFragment(int position) {
+    private void changeFragment(int position) {
         switch (position) {
             case 0:
                 adapter.clear();
                 setContentView(R.layout.my_library);
                 ((ListView) findViewById(R.id.my_library)).setAdapter(adapter);
-
                 Book newBook = new Book(1, getResources().getString(R.string.author1),
                         getResources().getString(R.string.title1),
                         getResources().getString(R.string.book1), 5.0, 4.8,"",
