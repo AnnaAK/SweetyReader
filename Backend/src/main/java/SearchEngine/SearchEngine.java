@@ -1,21 +1,17 @@
-package SearchEngine;
+package main.java.SearchEngine;
 
-/* Search Engine for books
-   stored csv files
-   made by Guzel Garifullina
-   for Sweaty Reader project
-*/
 
-import Basic.Book;
-import Recommender.BookRecommender1;
+import main.java.Basic.Book;
+import main.java.Recommender.BookRecommender;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class SearchEngine1 {
+public class SearchEngine {
     private String filePath  = "/home/guzel/" +
             "Programming/SweetyReader/Backend/src/main/java/data/";
     private String fileName = "Formated_BX-Books.csv";
@@ -73,10 +69,10 @@ public class SearchEngine1 {
         }
     }
     public static void main(String[] args) {
-        BookRecommender1 br = new BookRecommender1();
+        BookRecommender br = new BookRecommender();
         try {
-            SearchEngine1 searchEngine = new SearchEngine1();
-            ArrayList items  = br.getRecommendations(new Long(8));
+            SearchEngine searchEngine = new SearchEngine();
+            ArrayList items  = br.getRecommendations(new Long(8), new HashMap<Long, Double>());
             if (items == null){
                 System.out.println("Recommendation fail");
                 return;

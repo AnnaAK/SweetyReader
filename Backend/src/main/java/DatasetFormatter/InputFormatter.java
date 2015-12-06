@@ -1,4 +1,4 @@
-package DatasetFormatter;
+package main.java.DatasetFormatter;
 
 /* Header remover for csv files
    made by Guzel Garifullina
@@ -83,7 +83,7 @@ public class InputFormatter {
                 pw.flush();
             }
         }catch (IOException e) {
-                System.err.println("Cannot find file");
+            System.err.println("Cannot find file");
         } finally {
             setFileName ("");
             pw.close();
@@ -105,7 +105,7 @@ public class InputFormatter {
         String delims = ";";
         String[] tokens = line.split(delims);
         if (notCorrect(tokens[0])){
-           return  "";
+            return  "";
         }
         int n = tokens.length;
         String res = tokens[0] + ";";

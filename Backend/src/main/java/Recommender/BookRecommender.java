@@ -1,10 +1,9 @@
-package Recommender;
+package main.java.Recommender;
 
 /* Item based recommender
    made by Guzel Garifullina
    for Sweaty Reader project
 */
-
 
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.eval.RecommenderBuilder;
@@ -15,6 +14,7 @@ import org.apache.mahout.cf.taste.impl.model.PlusAnonymousConcurrentUserDataMode
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.recommender.CachingRecommender;
 import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.impl.similarity.TanimotoCoefficientSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
@@ -24,10 +24,11 @@ import org.apache.mahout.cf.taste.similarity.ItemSimilarity;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BookRecommender1 {
+public class BookRecommender {
     String fileDir  = "/home/guzel/Programming/" +
             "SweetyReader/Backend/src/main/java/data/";
     //String fileName ="smallDataset.csv" ;
@@ -36,13 +37,12 @@ public class BookRecommender1 {
     private int concurrentUsers = 100;
     protected int recommendationAmt = 5;
 
-    protected File file;
+    protected File file = new File(fileFull);
     protected DataModel model;
     protected PlusAnonymousConcurrentUserDataModel anonymousModel;
     protected BookRecommenderBuilder brb ;
     protected Recommender cachingRecommender ;
-    public BookRecommender1() {
-        File file = new File(fileFull);
+    public BookRecommender() {
         try {
             model = new FileDataModel(file);
             anonymousModel = new PlusAnonymousConcurrentUserDataModel(
@@ -57,7 +57,7 @@ public class BookRecommender1 {
     }
     protected class BookRecommenderBuilder implements RecommenderBuilder {
         public Recommender buildRecommender(DataModel model) throws TasteException{
-            ItemSimilarity similarity = new TanimotoCoefficientSimilarity(model);
+            ItemSimilarity similarity = new PearsonCorrelationSimilarity(model);
             GenericItemBasedRecommender recommender = new GenericItemBasedRecommender
                     (model, similarity);
             Recommender cachingRecommender = new CachingRecommender(recommender);
@@ -65,7 +65,7 @@ public class BookRecommender1 {
         }
     }
     private boolean userExistsInDataModel(DataModel model, Long id){
-        return true;
+        return ! id.equals(new Long(0)) ;
     }
     private List<RecommendedItem> recommendForExistingUser(Long id)
             throws TasteException, IOException {
@@ -96,9 +96,13 @@ public class BookRecommender1 {
         return recommendForExistingUser(newUserID);
     }
 
-    protected List<RecommendedItem> getRecommendedItems(Long id)
+    protected List<RecommendedItem> getRecommendedItems(Long id,
+                                                        Map<Long, Double> userPreferences)
             throws TasteException, IOException {
-        return recommendForExistingUser(id);
+        if (userExistsInDataModel(model, id)) {
+            return recommendForExistingUser(id);
+        }
+        return recommendForNewUser(userPreferences);
     }
     private ArrayList<Long> convertToIndices(List<RecommendedItem> list) {
         ArrayList<Long> res = new ArrayList<Long>();
@@ -108,9 +112,10 @@ public class BookRecommender1 {
         }
         return res;
     }
-    public ArrayList<Long> getRecommendations (Long id) {
+    public ArrayList<Long> getRecommendations (Long id,
+                                               Map<Long, Double> userPreferences) {
         try {
-            return convertToIndices(recommendForExistingUser(id));
+            return convertToIndices(getRecommendedItems(id, userPreferences));
         } catch (TasteException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -131,8 +136,32 @@ public class BookRecommender1 {
         }
         return result;
     }
-    public static void main(String[] args) {
-        BookRecommender1 br = new BookRecommender1();
+    /*public static void main(String[] args) {
+        BookRecommender br = new BookRecommender();
         System.out.println(br.evaluate(0.2,0.1));
+    }*/
+    public static void main(String[] args){
+        BookRecommender br = new BookRecommender();
+        Long id = new Long(0);
+        HashMap<Long, Double> userPreferences = new HashMap<Long, Double>();
+        userPreferences.put(new Long(671027360), 8.);
+        userPreferences.put(new Long(330332775), 6.0);
+        userPreferences.put(new Long(671027387), 8.0);
+        userPreferences.put(new Long(380973839), 10.0);
+        userPreferences.put(new Long(743424425), 9.0);
+        userPreferences.put(new Long(307001164), 9.0);
+        userPreferences.put(new Long(140620338), 8.0);
+        userPreferences.put(new Long(99771519), 10.0);
+        userPreferences.put(new Long(345325818), 8.0);
+        userPreferences.put(new Long(99771519), 10.0);
+        userPreferences.put(new Long(345325818), 8.0);
+        ArrayList<Long>  recommendedBooks = br.getRecommendations(id,userPreferences);
+        for (Long book : recommendedBooks){
+            System.out.println(book);
+        }
+
+
+
+
     }
 }

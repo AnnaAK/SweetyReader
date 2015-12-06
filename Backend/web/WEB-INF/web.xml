@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <servlet>
-        <servlet-name>RecommendationServlet1</servlet-name>
-        <servlet-class>LocalServer.RecommendationServlet1</servlet-class>
+        <servlet-name>RecommendationServlet</servlet-name>
+        <servlet-class>main.java.LocalServer.RecommendationServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RecommendationServlet1</servlet-name>
+        <servlet-name>RecommendationServlet</servlet-name>
         <url-pattern>/directURL</url-pattern>
     </servlet-mapping>
 </web-app>

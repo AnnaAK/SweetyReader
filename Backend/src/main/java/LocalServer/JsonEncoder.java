@@ -1,17 +1,16 @@
-package LocalServer;
+package main.java.LocalServer;
 
-/* Json encoder
-   made by Guzel Garifullina
-   for Sweaty Reader project
-*/
-import Basic.Book;
+import main.java.Basic.Book;
+import main.java.SearchEngine.SearchEngine;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
-public class JsonEncoder1 {
+public class JsonEncoder{
     private JSONObject encodeBook(Book book) {
         JSONObject obj = new JSONObject();
         try {
@@ -47,7 +46,7 @@ public class JsonEncoder1 {
         mainObj.put("books", ja);
         return mainObj;
     }
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         ArrayList<Long> bookIds = new ArrayList();
         bookIds.add(new Long(375759778));
         bookIds.add(new Long(425182908));
@@ -77,5 +76,7 @@ public class JsonEncoder1 {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
+
 }
+

@@ -51,12 +51,13 @@ public class ServerConnector{
 
             //Get Response
             String response= "";
-            Scanner inStream = new Scanner(connection.getInputStream());
+            InputStream inputStream = connection.getInputStream();
+            Scanner inStream = new Scanner(inputStream);
 
             while(inStream.hasNextLine())
                 response+=(inStream.nextLine());
 
-            String jsonString = response.toString();
+            String jsonString = response;
             JSONObject jsonObjectOut = new JSONObject (jsonString);
             System.out.println(jsonString);
             return jsonDecoder.decodeBooks(jsonObjectOut);
@@ -83,14 +84,22 @@ public class ServerConnector{
 
     public static void main(String[] args) {
         ServerConnector sc = new ServerConnector();
-        HashMap<Long, Double> bookRates = new HashMap<Long, Double>();
-        bookRates.put(new Long(195153448), 9.8);
-        bookRates.put(new Long(425182908), 7.8);
-        bookRates.put(new Long(679810307), 6.3);
+        Long id = new Long(0);
+        HashMap<Long, Double> userPreferences = new HashMap<Long, Double>();
+        userPreferences.put(new Long(671027360), 8.);
+        userPreferences.put(new Long(330332775), 6.0);
+        userPreferences.put(new Long(671027387), 8.0);
+        userPreferences.put(new Long(380973839), 10.0);
+        userPreferences.put(new Long(743424425), 9.0);
+        userPreferences.put(new Long(307001164), 9.0);
+        userPreferences.put(new Long(140620338), 8.0);
+        userPreferences.put(new Long(99771519), 10.0);
+        userPreferences.put(new Long(345325818), 8.0);
+        userPreferences.put(new Long(99771519), 10.0);
+        userPreferences.put(new Long(345325818), 8.0);
 
-        Long id = new Long(8);
         try {
-            ArrayList<Book> books = sc.getRecommendations(id, bookRates);
+            ArrayList<Book> books = sc.getRecommendations(id, userPreferences);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,9 +1,4 @@
-package LocalServer;
-
-/* Json decoder
-   made by Guzel Garifullina
-   for Sweaty Reader project
-*/
+package main.java.LocalServer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +6,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class JsonDecoder1 {
+public class JsonDecoder {
     public UserRates decodeInput (JSONObject jsonObject)
             throws JSONException {
         HashMap<Long, Double> rates = new HashMap<Long, Double>();
@@ -22,7 +17,7 @@ public class JsonDecoder1 {
             rates.put(jOb.getLong("id"),jOb.getDouble("rate") );
         }
         UserRates userRatesClass = new UserRates();
-        userRatesClass.setId(jsonObject.getLong("userID"));
+        userRatesClass.setUserId(jsonObject.getLong("userID"));
         userRatesClass.setRates (rates);
         return  userRatesClass;
     }
