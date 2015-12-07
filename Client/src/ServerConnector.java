@@ -58,6 +58,7 @@ public class ServerConnector{
                 response+=(inStream.nextLine());
 
             String jsonString = response;
+
             JSONObject jsonObjectOut = new JSONObject (jsonString);
             System.out.println(jsonString);
             return jsonDecoder.decodeBooks(jsonObjectOut);
@@ -86,17 +87,23 @@ public class ServerConnector{
         ServerConnector sc = new ServerConnector();
         Long id = new Long(0);
         HashMap<Long, Double> userPreferences = new HashMap<Long, Double>();
-        userPreferences.put(new Long(671027360), 8.);
+        //userPreferences.put(new Long(671027360), 8.);
         userPreferences.put(new Long(330332775), 6.0);
-        userPreferences.put(new Long(671027387), 8.0);
+        //userPreferences.put(new Long(671027387), 8.0);
         userPreferences.put(new Long(380973839), 10.0);
-        userPreferences.put(new Long(743424425), 9.0);
+        //userPreferences.put(new Long(743424425), 9.0);
         userPreferences.put(new Long(307001164), 9.0);
         userPreferences.put(new Long(140620338), 8.0);
         userPreferences.put(new Long(99771519), 10.0);
         userPreferences.put(new Long(345325818), 8.0);
-        userPreferences.put(new Long(99771519), 10.0);
-        userPreferences.put(new Long(345325818), 8.0);
+
+        userPreferences.put(new Long(451187903), 9.0);
+        userPreferences.put(new Long(671032658), 10.0);
+        userPreferences.put(new Long(345339703), 10.0);
+        userPreferences.put(new Long(61020710), 9.0);
+       // userPreferences.put(new Long(446605239), 8.0);
+        userPreferences.put(new Long(575041714), 10.0);
+
 
         try {
             ArrayList<Book> books = sc.getRecommendations(id, userPreferences);
