@@ -87,37 +87,98 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void showRecomendation(){
-
-            new Thread(new Runnable() {
+        new Thread(new Runnable() {
                 public void run() {
                     ServerConnector sc = new ServerConnector();
                     ArrayList<Book> bookRates = new ArrayList<Book>();
                     Book b1 = new Book();
-                    b1.id = new Long(195153448);
-                    b1.user_rating = 9.8;
+                    b1.id = new Long(330332775);
+                    b1.user_rating = 6.0;
 
-                    Book b2 = new Book();
-                    b2.id = new Long(425182908);
-                    b2.user_rating = 7.8;
+                    /*Book b2 = new Book();
+                    b2.id = new Long(330332775);
+                    b2.user_rating = 6.0;*/
 
                     Book b3 = new Book();
-                    b3.id = new Long(679810307);
-                    b3.user_rating = 6.3;
+                    b3.id = new Long(380973839);
+                    b3.user_rating = 10.0;
+
+                    Book b4 = new Book();
+                    b4.id = new Long(307001164);
+                    b4.user_rating = 9.0;
+
+                    Book b5 = new Book();
+                    b5.id = new Long(140620338);
+                    b5.user_rating = 8.0;
+
+                    Book b6 = new Book();
+                    b6.id = new Long(99771519);
+                    b6.user_rating = 10.0;
+
+                    Book b7 = new Book();
+                    b7.id = new Long(345325818);
+                    b7.user_rating = 8.0;
+
+                    Book b8 = new Book();
+                    b8.id = new Long(451187903);
+                    b8.user_rating = 9.0;
+
+                    Book b9 = new Book();
+                    b9.id = new Long(671032658);
+                    b9.user_rating = 10.0;
+
+                    Book b10 = new Book();
+                    b10.id = new Long(345339703);
+                    b10.user_rating = 10.0;
+
+                    Book b11 = new Book();
+                    b11.id = new Long(61020710);
+                    b11.user_rating = 9.0;
+
+                    /*Book b12 = new Book();
+                    b12.id = new Long(330332775);
+                    b12.user_rating = 6.0;*/
+
+                    /*Book b13 = new Book();
+                    b13.id = new Long(446605239);
+                    b13.user_rating = 9.0;*/
+
+                    Book b14 = new Book();
+                    b14.id = new Long(575041714);
+                    b14.user_rating = 10.0;
+
+                    /*Book b15 = new Book();
+                    b15.id = new Long(671027387);
+                    b15.user_rating = 8.0;*/
 
                     bookRates.add(b1);
-                    bookRates.add(b2);
+                    //bookRates.add(b2);
                     bookRates.add(b3);
-                    Long id = new Long(8);
+                    bookRates.add(b4);
+                    bookRates.add(b5);
+                    bookRates.add(b6);
+                    bookRates.add(b7);
+                    bookRates.add(b8);
+                    bookRates.add(b9);
+                    bookRates.add(b10);
+                    bookRates.add(b11);
+                    //bookRates.add(b12);
+                    //bookRates.add(b13);
+                    bookRates.add(b14);
+                   // bookRates.add(b15);
+
+                    Long id = new Long(0);
                     try {
-                        final ArrayList<Book> recommendedBooks = sc.getRecommendations(id, bookRates);
+                        ArrayList<Book> recommendedBooks1 = sc.getRecommendations(id, bookRates);
+                        while (recommendedBooks1 == null) {
+                            recommendedBooks1 = sc.getRecommendations(id, bookRates);
+                        }
+                        final ArrayList<Book>  recommendedBooks = recommendedBooks1 ;
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 adapter.clear();
                                 setContentView(R.layout.my_library);
                                 ((ListView) findViewById(R.id.my_library)).setAdapter(adapter);
-                                if (recommendedBooks == null){
-                                    return;
-                                }
                                 for (Book book:recommendedBooks){
                                     adapter.add(book);
                                     adapter.notifyDataSetChanged();
@@ -139,56 +200,31 @@ public class MainActivity extends FragmentActivity {
                 adapter.clear();
                 setContentView(R.layout.my_library);
                 ((ListView) findViewById(R.id.my_library)).setAdapter(adapter);
-                /**Book newBook = new Book(1, getResources().getString(R.string.author1),
-                        getResources().getString(R.string.title1),
-                        getResources().getString(R.string.book1), 5.0, 4.8,"",
-                        getResources().getString(R.string.cover1),"");
-                adapter.add(newBook);
-                Book newBook1 = new Book(2, getResources().getString(R.string.author2),
-                        getResources().getString(R.string.title2),
-                        getResources().getString(R.string.book2), 4.0, 4.8,"",
-                        getResources().getString(R.string.cover2),"");
-                adapter.add(newBook1);
-                Book newBook2 = new Book(3, getResources().getString(R.string.author3),
-                        getResources().getString(R.string.title3),
-                        getResources().getString(R.string.book3), 5.0, 4.8,"",
-                        getResources().getString(R.string.cover3),"");
-                adapter.add(newBook2);
-                Book newBook3 = new Book(4, getResources().getString(R.string.author4),
-                        getResources().getString(R.string.title4),
-                        getResources().getString(R.string.book4), 5.0, 4.7,"",
-                        getResources().getString(R.string.cover4),"");
-                adapter.add(newBook3);
-                Book newBook4 = new Book(5, getResources().getString(R.string.author5),
-                        getResources().getString(R.string.title5),
-                        getResources().getString(R.string.book5), 5.0, 4.8,"",
-                        getResources().getString(R.string.cover5),"");
-                adapter.add(newBook4);*/
-                Book newBook5 = new Book(671027360, getResources().getString(R.string.author6),
+                /**Book newBook5 = new Book(671027360, getResources().getString(R.string.author6),
                         getResources().getString(R.string.title6),
                         getResources().getString(R.string.book6), 4.0, 4.6,"",
                         getResources().getString(R.string.cover6),"");
-                adapter.add(newBook5);
+                adapter.add(newBook5);*/
                 Book newBook6 = new Book(330332775, getResources().getString(R.string.author7),
                         getResources().getString(R.string.title7),
                         getResources().getString(R.string.book7), 3.0, 3.9,"",
                         getResources().getString(R.string.cover7),"");
                 adapter.add(newBook6);
-                Book newBook7 = new Book(671027387, getResources().getString(R.string.author8),
+                /**Book newBook7 = new Book(671027387, getResources().getString(R.string.author8),
                         getResources().getString(R.string.title8),
                         getResources().getString(R.string.book8), 5.0, 4.8,"",
                         getResources().getString(R.string.cover8),"");
-                adapter.add(newBook7);
+                adapter.add(newBook7);*/
                 Book newBook8 = new Book(380973839, getResources().getString(R.string.author9),
                         getResources().getString(R.string.title9),
                         getResources().getString(R.string.book9), 5.0, 4.9,"",
                         getResources().getString(R.string.cover9),"");
                 adapter.add(newBook8);
-                Book newBook9 = new Book(743424425, getResources().getString(R.string.author10),
+                /**Book newBook9 = new Book(743424425, getResources().getString(R.string.author10),
                         getResources().getString(R.string.title10),
                         getResources().getString(R.string.book10), 5.0, 4.8,"",
                         getResources().getString(R.string.cover10),"");
-                adapter.add(newBook9);
+                adapter.add(newBook9);*/
                 Book newBook10 = new Book(307001164, getResources().getString(R.string.author11),
                         getResources().getString(R.string.title11),
                         getResources().getString(R.string.book11), 5.0, 4.8,"",
@@ -214,11 +250,11 @@ public class MainActivity extends FragmentActivity {
                         getResources().getString(R.string.book15), 5.0, 4.8,"",
                         getResources().getString(R.string.cover15),"");
                 adapter.add(newBook14);
-                Book newBook15 = new Book(950547001, getResources().getString(R.string.author16),
+                /**Book newBook15 = new Book(950547001, getResources().getString(R.string.author16),
                         getResources().getString(R.string.title16),
                         getResources().getString(R.string.book16), 5.0, 4.8,"",
                         getResources().getString(R.string.cover16),"");
-                adapter.add(newBook15);
+                adapter.add(newBook15);*/
                 Book newBook16 = new Book(451187903, getResources().getString(R.string.author17),
                         getResources().getString(R.string.title17),
                         getResources().getString(R.string.book17), 5.0, 4.8,"",
@@ -249,16 +285,16 @@ public class MainActivity extends FragmentActivity {
                         getResources().getString(R.string.book22), 5.0, 4.8,"",
                         getResources().getString(R.string.cover22),"");
                 adapter.add(newBook21);
-                Book newBook22 = new Book(446605239, getResources().getString(R.string.author23),
+               /** Book newBook22 = new Book(446605239, getResources().getString(R.string.author23),
                         getResources().getString(R.string.title23),
                         getResources().getString(R.string.book23), 5.0, 4.8,"",
                         getResources().getString(R.string.cover23),"");
-                adapter.add(newBook22);
-                /**Book newBook23 = new Book(5, getResources().getString(R.string.author24),
+                adapter.add(newBook22);*/
+                Book newBook23 = new Book(575041714, getResources().getString(R.string.author24),
                         getResources().getString(R.string.title24),
                         getResources().getString(R.string.book24), 5.0, 4.8,"",
                         getResources().getString(R.string.cover24),"");
-                adapter.add(newBook23);*/
+                adapter.add(newBook23);
                 adapter.notifyDataSetChanged();
                 break;
             case 1:

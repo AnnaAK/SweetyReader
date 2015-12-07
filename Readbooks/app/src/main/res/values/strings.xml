@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ReadBooks</string>
+    <string name="app_name">Sweety Reader</string>
     <string name="your_library">Моя библиотека</string>
 
     <string name="book1">Смерть ловит рыбу. Веселится на вечеринке. Напивается в трактире. А все обязанности Мрачного Жнеца сваливаются на хрупкие плечи его ученика. Но делать нечего: берем косу, прыгаем на белую лошадь Бинки — и вперед!</string>
@@ -51,7 +51,7 @@
     <string name="cover21">http://images.amazon.com/images/P/0385304366.01.THUMBZZZ.jpg</string>
     <string name="cover22">http://images.amazon.com/images/P/0061020710.01.MZZZZZZZ.jpg</string>
     <string name="cover23">http://images.amazon.com/images/P/0446605239.01.MZZZZZZZ.jpg</string>
-    <string name="cover24">http://images.amazon.com/images/P/0451159233.01.THUMBZZZ.jpg</string>
+    <string name="cover24">http://ecx.images-amazon.com/images/I/51DsIqRPK4L._SL160_.jpg</string>
 
 
     <string name="author1">Тэрри Пратчетт</string>
