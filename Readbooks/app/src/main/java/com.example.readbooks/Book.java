@@ -3,6 +3,7 @@ package com.example.readbooks;
 /* General class Book
    made by Guzel Garifullina
    for Sweaty Reader project
+
 */
 public class Book {
     public  long id;
